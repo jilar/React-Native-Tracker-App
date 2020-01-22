@@ -4,28 +4,19 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Provider} from 'react-redux';
 import{createStore, combineReducers} from 'redux';
-import { StyleSheet, Text, View } from 'react-native';
-import AccountScreen from './src/screen/AccountScreen';
-import SignupScreen from './src/screen/SignupScreen';
-import SigninScreen from './src/screen/SigninScreen';
-import TrackCreateScreen from './src/screen/TrackCreateScreen';
-import TrackDetailScreen from './src/screen/TrackDetailScreen';
-import TrackListScreen from './src/screen/TrackListScreen';
-//import reducers from './src/reducers'
+import reducers from './src/reducers'
+import AccountScreen from './src/screens/AccountScreen';
+import SignupScreen from './src/screens/SignupScreen';
+import SigninScreen from './src/screens/SigninScreen';
+import TrackCreateScreen from './src/screens/TrackCreateScreen';
+import TrackDetailScreen from './src/screens/TrackDetailScreen';
+import TrackListScreen from './src/screens/TrackListScreen';
 
-const SwitchNavigator=createSwitchNavigator({
-  loginFlow:stackNavigator,
-  mainFlow: bottomTabNavigator
-});
+let store = createStore(reducers);
 
 const stackNavigator = createStackNavigator({
-  Signin: SigninScreen,
   Signup:SignupScreen,
-},{
-  initialRouteName:'Signin',
-  defaultNavigationOptions:{
-    title:'Track App'
-  }
+  Signin: SigninScreen
 });
 
 const bottomTabNavigator= createBottomTabNavigator({
@@ -37,5 +28,18 @@ const bottomTabNavigator= createBottomTabNavigator({
   })
 })
 
+const switchNavigator=createSwitchNavigator({
+  loginFlow:stackNavigator,
+  mainFlow: bottomTabNavigator
+});
 
-export default createAppContainer(switchNavigator);
+const App= createAppContainer(switchNavigator);
+//export default createAppContainer(switchNavigator);
+
+export default () =>{
+  return(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
+};
