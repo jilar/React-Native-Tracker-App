@@ -3,8 +3,10 @@ import { createAppContainer, createSwitchNavigator  } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {Provider} from 'react-redux';
-import{createStore, combineReducers} from 'redux';
+import{createStore, applyMiddleware, compose} from 'redux';
+import reduxThunk from 'redux-thunk';
 import reducers from './src/reducers'
+import {setNavigator} from './src/navigationRef';
 import AccountScreen from './src/screens/AccountScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import SigninScreen from './src/screens/SigninScreen';
@@ -12,7 +14,7 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(reduxThunk));
 
 const stackNavigator = createStackNavigator({
   Signup:SignupScreen,
@@ -20,12 +22,12 @@ const stackNavigator = createStackNavigator({
 });
 
 const bottomTabNavigator= createBottomTabNavigator({
-  Account:AccountScreen,
-  TrackCreate:TrackCreateScreen,
   trackFlow:createStackNavigator({
     TrackDetail:TrackDetailScreen,
     TrackList:TrackListScreen
-  })
+  }),
+  TrackCreate:TrackCreateScreen,
+  Account:AccountScreen
 })
 
 const switchNavigator=createSwitchNavigator({
@@ -39,7 +41,7 @@ const App= createAppContainer(switchNavigator);
 export default () =>{
   return(
     <Provider store={store}>
-      <App />
+      <App  ref ={(navigator)=>{setNavigator(navigator)}}/>
     </Provider>
   )
 };
