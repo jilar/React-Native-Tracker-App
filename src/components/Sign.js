@@ -1,10 +1,10 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity,Text} from 'react-native';
 
-const Sign =({}) => {
+const Sign =({navigation,textMessage}) => {
   return (
-    <TouchableOpacity style={styles.signIn}  onPress={()=>navigation.navigate('Signin')}>
-       <Text>Already have an account? Sign in here.</Text>
+    <TouchableOpacity  onPress={()=>navigation.navigate('Signin')}>
+       <Text style={styles.signIn}>{textMessage}</Text>
     </TouchableOpacity>
 )}
 
