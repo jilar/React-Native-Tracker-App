@@ -2,15 +2,15 @@ import{
   SIGN_IN,
   SIGN_OUT,
   SIGN_UP,
-  SIGN_UP_ERR
+  SIGN_ERR,
+  CLEAR_ERR
 }from './types'
 import trackerApi from '../api/tracker';
 import {navigate} from '../navigationRef';
 
 export const signUp= (userInfo) =>async(dispatch)=>{
-  const packet= {email:userInfo.email, password:userInfo.password};
     try{
-      const response =await trackerApi.post('/signup', packet);
+      const response =await trackerApi.post('/signup', userInfo);
       dispatch({
         type: SIGN_UP,
         payload:response.data
@@ -18,18 +18,33 @@ export const signUp= (userInfo) =>async(dispatch)=>{
       navigate('mainFlow');
     }catch(err){
       dispatch({
-        type: SIGN_UP_ERR,
-        payload:"There was problem trying to sign up. Try again."
+        type: SIGN_ERR,
+        payload:"Username in use. Try a different one."
       });
     }
 }
 
-export const signIn= (userInfo) =>{
-  return{
-    type:SIGN_IN,
-    payload:userInfo
+export const signIn= (userInfo) =>async(dispatch)=>{
+  try{
+    const response =await trackerApi.post('/signin', userInfo);
+    dispatch({
+      type: SIGN_UP,
+      payload:response.data
+    });
+    navigate('mainFlow');
+  }catch(err){
+    dispatch({
+      type: SIGN_ERR,
+      payload:"Incorrect username or password. Try again."
+    });
   }
 }
+
+export const clearError =()=>{
+  return{
+    type:CLEAR_ERR
+  };
+};
 
 export const signOut =()=>{
   return{

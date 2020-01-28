@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View,StyleSheet, TextInput,TouchableOpacity} from 'react-native';
+import {StyleSheet, TextInput,TouchableOpacity} from 'react-native';
 import{Text,Input,Button} from 'react-native-elements';
 import Spacer from '../components/Spacer'
 import {connect} from 'react-redux';
@@ -8,7 +8,8 @@ const AuthForm= ({Auth,onSubmit,buttonText,headerText})=>{
   const [email, setEmail]=useState('');
   const [password,setPassword]= useState('');
 
-  return <>
+  return (
+    <>
     <Spacer>
       <Text h3>{headerText}</Text>
     </Spacer>
@@ -20,7 +21,7 @@ const AuthForm= ({Auth,onSubmit,buttonText,headerText})=>{
       <Button title = {buttonText} onPress={()=>onSubmit({email: email,password:password})}/>
     </Spacer>
     </>
-};
+)};
 
 
 const styles = StyleSheet.create({
