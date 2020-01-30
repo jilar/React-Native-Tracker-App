@@ -16,8 +16,8 @@ export default (state= INITIAL_STATE, action)=>{
       return {...state,errorMessage:action.payload};
     case CLEAR_ERR:
       return {...state,errorMessage:null};
-    // case SIGN_OUT:
-    //   return {...state,isSignedIn:false ,userId:null};
+    case SIGN_OUT:
+       return {token:null, errorMessage:null};
     default:
       return state;
   }

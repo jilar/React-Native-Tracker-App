@@ -47,6 +47,7 @@ export const clearError =()=>{
 };
 
 export const signOut =()=>{
+  navigate('loginFlow');
   return{
     type:SIGN_OUT
   };
