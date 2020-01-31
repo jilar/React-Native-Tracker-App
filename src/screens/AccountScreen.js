@@ -8,7 +8,7 @@ import {signOut} from '../actions';
 const AccountScreen= ({signOut})=>{
   return(
   <SafeAreaView forceInset={{top: 'always'}}>
-      <Text style ={{fontSize:48}}>AccountScreen</Text>
+     <Text style ={{fontSize:48}}>AccountScreen</Text>
      <Button title = "Sign Out" onPress={signOut}/>
   </SafeAreaView>
 )};
