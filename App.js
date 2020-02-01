@@ -17,8 +17,8 @@ import TrackListScreen from './src/screens/TrackListScreen';
 let store = createStore(reducers, applyMiddleware(reduxThunk));
 
 const stackNavigator = createStackNavigator({
+  Signin: SigninScreen,
   Signup:SignupScreen,
-  Signin: SigninScreen
 });
 
 const bottomTabNavigator= createBottomTabNavigator({

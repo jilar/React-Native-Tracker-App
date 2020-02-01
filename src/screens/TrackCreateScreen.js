@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {View,StyleSheet,Text, Button, TextInput,TouchableOpacity} from 'react-native';
-import {Text} from 'react-native';
+import {View,StyleSheet, Button, TextInput,TouchableOpacity} from 'react-native';
+import {Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-navigation';
+import {requestPermissionsAsync} from  'expo-location';
 import Map from '../components/Map'
 
 const TrackCreateScreen= ()=>{
+  const [err,serErr]= useState(null);
+
+  const startWatching=aync ()=>{
+    try{
+      await requestPermissionsAsync();
+    }catch (e){
+      setErr(e);
+    }
+  };
+
   return (
     <SafeAreaView force Inset={{top: 'always'}}>
-      <Text style ={{fontSize:48}}>TrackCreateScreen</Text>;
+      <Text style ={{fontSize:48}}>Create a Track</Text>
       <Map/>
-    <SafeAreaView/>
+      {err ? <Text>Please enable location services</Text>: null}
+    </SafeAreaView>
 )};
 
-const styles = StyleSheet.create({});
 
 export default TrackCreateScreen;
