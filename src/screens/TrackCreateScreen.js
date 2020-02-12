@@ -1,16 +1,17 @@
+import '../_mockLocation';
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
 import {View,StyleSheet, Button, TextInput,TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-navigation';
 import {requestPermissionsAsync, watchPositionAsync, Accuracy} from  'expo-location';
 import Map from '../components/Map'
-import '../_mockLocation';
+import {connect} from 'react-redux';
+import {addLocation} from '../actions';
 
-const TrackCreateScreen= ()=>{
-  const [err,serErr]= useState(null);
+const TrackCreateScreen= ({addLocation})=>{
+  const [err,setErr]= useState(null);
 
-  const startWatching=aync ()=>{
+  const startWatching=async ()=>{
     try{
       await requestPermissionsAsync();
       //watch users
@@ -20,18 +21,18 @@ const TrackCreateScreen= ()=>{
           timeInterval:1000,
           distanceInterval:10
         },
-        location =>{
-            console.log(location);
+        (location) =>{
+            addLocation(location);
         }
-    }catch (e){
+    )}catch(e){
       setErr(e);
     }
   };
 
 //runs once when component is first rendered
-  const useEffect(()=>{
+  useEffect(()=>{
     startWatching();
-  },[])
+  },[]);
 
   return (
     <SafeAreaView force Inset={{top: 'always'}}>
@@ -42,4 +43,4 @@ const TrackCreateScreen= ()=>{
 )};
 
 
-export default TrackCreateScreen;
+export default connect(null,{addLocation})(TrackCreateScreen);

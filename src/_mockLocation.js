@@ -8,10 +8,10 @@ const getLocation =increment =>{
     coords:{
       speed: 0,
       heading: 0,
-      accuract: 5,
+      accuracy: 5,
       altitude: 5,
-      longitude: -122.0312186 +increment *tenMetersWithDegrees,
-      latitude: 37.33233141 +increment *tenMetersWithDegrees
+      longitude:-121.29407005 +increment *tenMetersWithDegrees,
+      latitude: 37.80950511 +increment *tenMetersWithDegrees
     }
   };
 };
@@ -20,7 +20,7 @@ let counter =0;
 //every second user will move
 //code only for testing purposes
 setInterval(()=>{
-   Location.EventEmitter.emit('Expo.locationChanges',{
+   Location.EventEmitter.emit('Expo.locationChanged',{
      watchId: Location._getCurrentWatchId(),
      location: getLocation(counter)
    })

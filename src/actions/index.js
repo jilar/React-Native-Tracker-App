@@ -3,7 +3,10 @@ import{
   SIGN_OUT,
   SIGN_UP,
   SIGN_ERR,
-  CLEAR_ERR
+  CLEAR_ERR,
+  START_RECORDING,
+  STOP_RECORDING,
+  ADD_LOCATION
 }from './types'
 import trackerApi from '../api/tracker';
 import {navigate} from '../navigationRef';
@@ -52,3 +55,10 @@ export const signOut =()=>{
     type:SIGN_OUT
   };
 };
+
+export const addLocation= (location) =>{
+  return{
+    type:ADD_LOCATION,
+    payload:location
+  }
+}
