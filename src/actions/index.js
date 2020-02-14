@@ -6,6 +6,7 @@ import{
   CLEAR_ERR,
   START_RECORDING,
   STOP_RECORDING,
+  ADD_CURRENT_LOCATION,
   ADD_LOCATION
 }from './types'
 import trackerApi from '../api/tracker';
@@ -56,9 +57,26 @@ export const signOut =()=>{
   };
 };
 
-export const addLocation= (location) =>{
-  return{
-    type:ADD_LOCATION,
+export const addLocation= (location) =>async(dispatch,getState)=>{
+  dispatch({
+    type:ADD_CURRENT_LOCATION,
     payload:location
+  });
+  if(getState().Location.recording){
+    dispatch({
+      type:ADD_LOCATION,
+      payload:location
+    });
+  }
+}
+
+export const startRecording= () =>{
+  return{
+    type:START_RECORDING
+  }
+}
+export const stopRecording= (location) =>{
+  return{
+    type:STOP_RECORDING
   }
 }

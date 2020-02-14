@@ -7,6 +7,7 @@ import Map from '../components/Map'
 import {connect} from 'react-redux';
 import {addLocation} from '../actions';
 import useLocation from '../hooks/useLocation';
+import TrackForm from '../components/TrackForm';
 
 const TrackCreateScreen= ({isFocused, addLocation})=>{
   const [err]= useLocation(isFocused, (location)=>addLocation(location));
@@ -16,6 +17,7 @@ const TrackCreateScreen= ({isFocused, addLocation})=>{
       <Text style ={{fontSize:48}}>Create a Track</Text>
       <Map/>
       {err ? <Text>Please enable location services</Text>: null}
+      <TrackForm/>
     </SafeAreaView>
 )};
 

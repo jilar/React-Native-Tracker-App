@@ -4,7 +4,6 @@ import MapView, {Polyline,Circle} from 'react-native-maps';
 import {connect} from 'react-redux';
 
 const Map =({LocationState})=>{
-  console.log(LocationState.currentLocation);
   return(
     <>
     {LocationState.currentLocation
@@ -25,6 +24,7 @@ const Map =({LocationState})=>{
             strokeColor="rgba(158,158,255,1.0)"
             fillColor="rgba(158,158,255,0.3)"
           />
+          <Polyline coordinates={LocationState.locations.map(point=>point.coords)}/>
         </MapView>
       : null
     }

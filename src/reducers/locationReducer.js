@@ -1,8 +1,9 @@
-import {START_RECORDING,STOP_RECORDING,ADD_LOCATION} from '../actions/types'
+import {START_RECORDING,STOP_RECORDING,ADD_LOCATION, ADD_CURRENT_LOCATION} from '../actions/types'
 
 //default aruguement
 const INITIAL_STATE={
   recording:false,
+  title:null,
   locations:[],
   currentLocation:null
 }
@@ -10,11 +11,13 @@ const INITIAL_STATE={
 export default (state= INITIAL_STATE, action)=>{
   switch(action.type){
     case START_RECORDING:
-      return {...state, recording:action.recording, locations:[...state.locations, action.currentLocation]}
+      return {...state, recording:true}
     case STOP_RECORDING:
-      return {...state, recording:action.recording, locations:[...state.locations, action.currentLocation]}
+      return {...state, recording:false}
+    case ADD_CURRENT_LOCATION:
+      return {...state, currentLocation:action.payload}
     case ADD_LOCATION:
-      return {...state, currentLocation:action.payload, locations:[...state.locations, action.payload]}
+      return {...state, locations:[...state.locations, action.payload]}
     default:
       return state;
   }
