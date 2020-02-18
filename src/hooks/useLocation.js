@@ -3,7 +3,7 @@ import {Accuracy, requestPermissionsAsync, watchPositionAsync} from 'expo-locati
 
 export default (shouldTrack, callback) => {
   const [err,setErr]= useState(null);
-  const [subscriber, setSubsriber]= useState(null);
+  const [subscriber, setSubscriber]= useState(null);
 
   const startWatching=async ()=>{
     try{
@@ -17,19 +17,18 @@ export default (shouldTrack, callback) => {
         },
         callback
       );
-      setSubsriber(sub);
+      setSubscriber(sub);
     }catch(e){
       setErr(e);
     }
   };
 
-//runs once when component is first rendered
   useEffect(()=>{
     if(shouldTrack){
       startWatching();
     }else{
       subscriber.remove();
-      setSubscriber=null;
+      setSubscriber(null);
     }
   },[shouldTrack]);
 

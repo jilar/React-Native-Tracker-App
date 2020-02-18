@@ -7,7 +7,8 @@ import{
   START_RECORDING,
   STOP_RECORDING,
   ADD_CURRENT_LOCATION,
-  ADD_LOCATION
+  ADD_LOCATION,
+  SAVE
 }from './types'
 import trackerApi from '../api/tracker';
 import {navigate} from '../navigationRef';
