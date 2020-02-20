@@ -8,7 +8,9 @@ import{
   STOP_RECORDING,
   ADD_CURRENT_LOCATION,
   ADD_LOCATION,
-  SAVE
+  SAVE_TRACK,
+  FETCH_TRACKS,
+  CLEAR_LOCATION
 }from './types'
 import trackerApi from '../api/tracker';
 import {navigate} from '../navigationRef';
@@ -71,13 +73,34 @@ export const addLocation= (location) =>async(dispatch,getState)=>{
   }
 }
 
-export const startRecording= () =>{
+export const startRecording= (title) =>{
   return{
-    type:START_RECORDING
+    type:START_RECORDING,
+    payload:title
   }
 }
-export const stopRecording= (location) =>{
+
+export const stopRecording= (title) =>{
   return{
-    type:STOP_RECORDING
+    type:STOP_RECORDING,
+    payload:title
+  }
+}
+
+export const saveTrack= (title) =>async(dispatch,getState)=>{
+  const track ={
+    title:title,
+    locations:getState.Location.Locations
+  }
+  dispatch{(
+    type:SAVE_TRACK,
+    payload:track
+  });
+
+}
+
+export const fetchTracks= (location) =>{
+  return{
+    type:FETCH_TRACKS
   }
 }

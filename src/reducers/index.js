@@ -7,7 +7,7 @@ import trackReducer from './trackReducer';
 export default combineReducers({
   Auth: authReducer,
   Location: locationReducer,
-  Track:trackReducer
+  TrackList:trackReducer
 });
 
 //form: formReducer,

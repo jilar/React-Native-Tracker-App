@@ -11,9 +11,9 @@ const INITIAL_STATE={
 export default (state= INITIAL_STATE, action)=>{
   switch(action.type){
     case START_RECORDING:
-      return {...state, recording:true}
+      return {...state, recording:true, title:action.payload}
     case STOP_RECORDING:
-      return {...state, recording:false}
+      return {...state, recording:false,title:action.payload}
     case ADD_CURRENT_LOCATION:
       return {...state, currentLocation:action.payload}
     case ADD_LOCATION:
