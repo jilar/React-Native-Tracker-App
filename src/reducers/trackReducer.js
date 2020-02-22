@@ -7,9 +7,9 @@ const INITIAL_STATE={
 export default (state= INITIAL_STATE, action)=>{
   switch(action.type){
     case SAVE_TRACK:
-      return {tracks: [...state, action.payload]};
+      return {tracks: [...state.tracks, action.payload]};
     case FETCH_TRACK:
-      return {tracks: [...state, action.payload]};
+      return {tracks: action.payload};
     default:
       return state;
   }

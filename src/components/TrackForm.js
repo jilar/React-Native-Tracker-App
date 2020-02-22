@@ -5,9 +5,9 @@ import {startRecording,stopRecording,saveTrack} from '../actions';
 import Spacer from '../components/Spacer'
 import useLocation from '../hooks/useLocation';
 
-const TrackForm =({startRecording,LocationState,stopRecording,saveTrack,Tracks}) =>{
+const TrackForm =({startRecording,LocationState,stopRecording,saveTrack}) =>{
   const [title, setTitle]=useState('');
-  console.log(Tracks.length);
+
   return <>
     <Spacer>
       <Input placeholder="Track Title" value={title} onChangeText={setTitle} autoCorrect ={false}/>
@@ -17,7 +17,11 @@ const TrackForm =({startRecording,LocationState,stopRecording,saveTrack,Tracks})
           <Button title="Start Recording" onPress={()=>startRecording()}/>
         </Spacer>
           {LocationState.locations.length>0 ? <Spacer>
-              <Button title="Save Recording" onPress={()=>saveTrack(title)}/>
+              <Button title="Save Recording"
+                onPress={()=>{
+                  saveTrack(title);
+                  setTitle('');
+                }}/>
             </Spacer> :null}</>
       : <Spacer>
           <Button title="Stop " onPress={()=>stopRecording()}/>
@@ -29,7 +33,6 @@ const TrackForm =({startRecording,LocationState,stopRecording,saveTrack,Tracks})
 const mapStateToProps=(state)=>{
   return{
     LocationState:state.Location
-    Tracks:state.TrackList
   }
 }
 

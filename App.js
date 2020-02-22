@@ -21,10 +21,11 @@ const stackNavigator = createStackNavigator({
   Signup:SignupScreen,
 });
 
+
 const bottomTabNavigator= createBottomTabNavigator({
-  trackFlow:createStackNavigator({
-    TrackDetail:TrackDetailScreen,
-    TrackList:TrackListScreen
+  TrackList:createStackNavigator({
+    TracksList:TrackListScreen,
+    TrackDetail:TrackDetailScreen
   }),
   TrackCreate:TrackCreateScreen,
   Account:AccountScreen
@@ -32,7 +33,7 @@ const bottomTabNavigator= createBottomTabNavigator({
 
 const switchNavigator=createSwitchNavigator({
   loginFlow:stackNavigator,
-  mainFlow: bottomTabNavigator
+  mainFlow:bottomTabNavigator
 });
 
 const App= createAppContainer(switchNavigator);

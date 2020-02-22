@@ -9,7 +9,7 @@ import{
   ADD_CURRENT_LOCATION,
   ADD_LOCATION,
   SAVE_TRACK,
-  FETCH_TRACKS,
+  FETCH_TRACK,
   CLEAR_LOCATION
 }from './types'
 import trackerApi from '../api/tracker';
@@ -89,18 +89,35 @@ export const stopRecording= (title) =>{
 
 export const saveTrack= (title) =>async(dispatch,getState)=>{
   const track ={
-    title:title,
-    locations:getState.Location.Locations
+    name:title,
+    locations:getState().Location.locations
+  };
+   try{
+    const header = { headers:{Authorization: `Bearer ${getState().Auth.token}`}};
+    const response =await trackerApi.post('/tracks', track,header);
+    // dispatch({
+    //   type:SAVE_TRACK,
+    //   payload:track
+    // });
+    dispatch({
+      type:CLEAR_LOCATION
+    });
+    navigate('mainFlow');
+  }catch(err){
+    console.log(err);
   }
-  dispatch{(
-    type:SAVE_TRACK,
-    payload:track
-  });
-
 }
 
-export const fetchTracks= (location) =>{
-  return{
-    type:FETCH_TRACKS
-  }
+export const fetchTracks= (location) =>async(dispatch,getState)=>{{
+  try{
+   const header = { headers:{Authorization: `Bearer ${getState().Auth.token}`}};
+   const response =await trackerApi.get('/tracks', header);
+   dispatch({
+     type:FETCH_TRACK,
+     payload:response.data
+   });
+ }catch(err){
+   console.log(err);
+ }
+ }
 }

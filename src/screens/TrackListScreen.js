@@ -1,15 +1,35 @@
 import React from 'react';
-import {View,StyleSheet,Text, Button, TextInput,TouchableOpacity} from 'react-native';
+import {FlatList,Text, Button, TextInput,TouchableOpacity} from 'react-native';
+import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
+import {fetchTracks} from '../actions';
+import {navigation, NavigationEvents} from 'react-navigation';
 
-const TrackListScreen= ({navigation})=>{
+const TrackListScreen= ({navigation,fetchTracks,TrackList})=>{
+  console.log(TrackList.tracks.length);
   return(
     <>
-    <Text style ={{fontSize:48}}>TrackListScreen</Text>
-      <Button title ="Go to Track Detail" onPress={(navigation.navigate('TrackDetail'))}/>
+      <NavigationEvents onWillFocus={fetchTracks} />
+      <Text style ={{fontSize:48}}>TrackListScreen</Text>
+      <FlatList
+        data={TrackList.tracks}
+        keyExtractor={item =>item._id}
+        renderItem={({item}) =>{
+         return(  <TouchableOpacity onPress={()=>
+             navigation.navigate('TrackDetail',{_id:item._id})
+             }
+           >
+           <Text>{item.name}</Text>
+          </TouchableOpacity>)
+        }}
+       />
     </>
 )};
 
-const styles = StyleSheet.create({});
+const mapStateToProps=(state)=>{
+  return {
+    TrackList:state.TrackList
+  }
+}
 
-export default TrackListScreen;
+export default connect(mapStateToProps,{fetchTracks})(TrackListScreen);
