@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {addLocation} from '../actions';
 import useLocation from '../hooks/useLocation';
 import TrackForm from '../components/TrackForm';
+import {FontAwesome} from '@expo/vector-icons'
 
 const TrackCreateScreen= ({isFocused, addLocation})=>{
   const [err]= useLocation(isFocused, (location)=>addLocation(location));
@@ -21,6 +22,10 @@ const TrackCreateScreen= ({isFocused, addLocation})=>{
     </SafeAreaView>
 )};
 
+TrackCreateScreen.navigationOptions={
+  title:'Add Track',
+  tabBarIcon: <FontAwesome name ="plus" size={20} />
+}
 const createWrapped= withNavigationFocus(TrackCreateScreen);
 
 export default connect(null,{addLocation})(createWrapped);

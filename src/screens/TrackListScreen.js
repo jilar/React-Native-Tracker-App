@@ -10,7 +10,7 @@ const TrackListScreen= ({navigation,fetchTracks,TrackList})=>{
   return(
     <>
       <NavigationEvents onWillFocus={fetchTracks} />
-      <Text style ={{fontSize:48}}>TrackListScreen</Text>
+
       <FlatList
         data={TrackList.tracks}
         keyExtractor={item =>item._id}
@@ -19,12 +19,16 @@ const TrackListScreen= ({navigation,fetchTracks,TrackList})=>{
              navigation.navigate('TrackDetail',{_id:item._id})
              }
            >
-           <Text>{item.name}</Text>
+           <ListItem chevron title={item.name}/>
           </TouchableOpacity>)
         }}
        />
     </>
 )};
+
+TrackListScreen.navigationOptions={
+  title:'Tracks'
+}
 
 const mapStateToProps=(state)=>{
   return {

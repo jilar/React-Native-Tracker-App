@@ -9,7 +9,7 @@ export default (state= INITIAL_STATE, action)=>{
     case SAVE_TRACK:
       return {tracks: [...state.tracks, action.payload]};
     case FETCH_TRACK:
-      return {tracks: action.payload};
+      return {...state, tracks: action.payload};
     default:
       return state;
   }

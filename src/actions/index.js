@@ -95,14 +95,10 @@ export const saveTrack= (title) =>async(dispatch,getState)=>{
    try{
     const header = { headers:{Authorization: `Bearer ${getState().Auth.token}`}};
     const response =await trackerApi.post('/tracks', track,header);
-    // dispatch({
-    //   type:SAVE_TRACK,
-    //   payload:track
-    // });
     dispatch({
       type:CLEAR_LOCATION
     });
-    navigate('mainFlow');
+    navigate('TracksList');
   }catch(err){
     console.log(err);
   }

@@ -4,6 +4,7 @@ import{Button} from 'react-native-elements';
 import {SafeAreaView} from 'react-navigation';
 import {connect} from 'react-redux';
 import {signOut} from '../actions';
+import {FontAwesome} from '@expo/vector-icons'
 
 const AccountScreen= ({signOut})=>{
   return(
@@ -12,6 +13,11 @@ const AccountScreen= ({signOut})=>{
      <Button title = "Sign Out" onPress={signOut}/>
   </SafeAreaView>
 )};
+
+AccountScreen.navigationOptions={
+  title:'Account',
+  tabBarIcon: <FontAwesome name ="gear" size={20} />
+}
 
 const styles = StyleSheet.create({});
 

@@ -13,6 +13,7 @@ import SigninScreen from './src/screens/SigninScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
+import {FontAwesome} from '@expo/vector-icons';
 
 let store = createStore(reducers, applyMiddleware(reduxThunk));
 
@@ -21,12 +22,18 @@ const stackNavigator = createStackNavigator({
   Signup:SignupScreen,
 });
 
+const TFlow= createStackNavigator({
+  TracksList:TrackListScreen,
+  TrackDetail:TrackDetailScreen
+})
+
+TFlow.navigationOptions={
+  Title:'Tracks',
+  tabBarIcon: <FontAwesome name ="th-list" size={20} />
+};
 
 const bottomTabNavigator= createBottomTabNavigator({
-  TrackList:createStackNavigator({
-    TracksList:TrackListScreen,
-    TrackDetail:TrackDetailScreen
-  }),
+  TrackListFlow:TFlow,
   TrackCreate:TrackCreateScreen,
   Account:AccountScreen
 })
